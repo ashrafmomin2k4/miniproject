@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Scan Result - APK Malware Scanner</title>
+  <title>Scan Result - Web Vulnerability Scanner</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-800">
   <nav class="bg-white shadow">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="/" class="text-2xl font-bold text-blue-600">APK Malware Scanner</a>
+      <a href="/" class="text-2xl font-bold text-blue-600">Web Vulnerability Scanner</a>
       <div class="space-x-6">
         <a href="/" class="hover:text-blue-600">Home</a>
         <a href="/how-it-works" class="hover:text-blue-600">How It Works</a>
@@ -19,62 +19,80 @@
   </nav>
 
   <main class="max-w-5xl mx-auto px-4 py-10">
-    <h1 class="text-3xl font-extrabold mb-6">Scan Result</h1>
+    <h1 class="text-3xl font-extrabold mb-6">Vulnerability Scan Result</h1>
 
     <div class="bg-white rounded-lg shadow p-6">
       <div class="grid md:grid-cols-2 gap-6">
         <div>
-          <p><span class="font-semibold">App Name:</span> {{ result.app_name }}</p>
-          <p><span class="font-semibold">Package:</span> {{ result.package_name }}</p>
-          <p><span class="font-semibold">Version:</span> {{ result.version_name }} ({{ result.version_code }})</p>
-          <p><span class="font-semibold">SHA256:</span> <span class="font-mono text-xs break-all">{{ result.sha256 }}</span></p>
+          <p><span class="font-semibold">Target URL:</span> <span class="font-mono text-sm break-all">{{ result.target_url }}</span></p>
+          <p><span class="font-semibold">Final URL:</span> <span class="font-mono text-sm break-all">{{ result.site_info.final_url }}</span></p>
+          <p><span class="font-semibold">Status Code:</span> {{ result.site_info.status_code }}</p>
+          <p><span class="font-semibold">Response Time:</span> {{ "%.2f"|format(result.site_info.response_time) }}s</p>
+          <p><span class="font-semibold">Content Length:</span> {{ result.site_info.content_length }} bytes</p>
+          <p><span class="font-semibold">Scan Time:</span> {{ result.scan_time }}</p>
         </div>
         <div class="text-right md:text-left">
-          <p class="font-semibold">Classification:</p>
-          {% set color = 'text-green-700 bg-green-100' if result.classification == 'Clean' else ('text-yellow-800 bg-yellow-100' if result.classification == 'Suspicious' else 'text-red-800 bg-red-100') %}
+          <p class="font-semibold">Risk Classification:</p>
+          {% set color = 'text-green-700 bg-green-100' if result.classification == 'Low Risk' else ('text-yellow-800 bg-yellow-100' if result.classification == 'Medium Risk' else 'text-red-800 bg-red-100') %}
           <span class="inline-block px-3 py-1 rounded {{ color }} font-bold">{{ result.classification }}</span>
-          <p class="mt-2"><span class="font-semibold">Risk Score:</span> {{ result.risk_score }}</p>
-          {% if result.is_blacklisted %}
-          <p class="mt-2 text-red-700 font-semibold">Blacklisted: This APK matches known malware.</p>
-          {% endif %}
+          <p class="mt-2"><span class="font-semibold">Risk Score:</span> {{ result.risk_score }}/100</p>
+          <p class="mt-2"><span class="font-semibold">Vulnerabilities Found:</span> {{ result.total_vulnerabilities }}</p>
+        </div>
+      </div>
+
+      {% if result.vulnerabilities %}
+      <div class="mt-8">
+        <h2 class="text-xl font-bold mb-4">Vulnerabilities Found ({{ result.total_vulnerabilities }})</h2>
+        <div class="space-y-4">
+          {% for vuln in result.vulnerabilities %}
+          <div class="bg-slate-50 rounded p-4">
+            <h3 class="font-semibold text-lg mb-2 capitalize">{{ vuln.category.replace('_', ' ') }}</h3>
+            <div class="text-sm">
+              <p class="mb-2"><span class="font-semibold">Risk Score:</span> {{ vuln.score }}/100</p>
+              <ul class="list-disc list-inside space-y-1">
+                {% for issue in vuln.issues %}
+                <li class="text-red-700">{{ issue }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <div class="mt-8">
+        <div class="bg-green-50 border border-green-200 rounded p-4">
+          <h2 class="text-xl font-bold mb-2 text-green-800">No Vulnerabilities Detected</h2>
+          <p class="text-green-700">Great! No security vulnerabilities were found during the scan.</p>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="mt-8">
+        <h2 class="text-xl font-bold mb-4">Scan Summary</h2>
+        <div class="bg-slate-50 rounded p-4">
+          <div class="grid md:grid-cols-3 gap-4 text-sm">
+            <div>
+              <p><span class="font-semibold">Total Checks:</span> {{ result.scan_summary.total_checks }}</p>
+            </div>
+            <div>
+              <p><span class="font-semibold">Vulnerabilities Found:</span> {{ result.scan_summary.vulnerabilities_found }}</p>
+            </div>
+            <div>
+              <p><span class="font-semibold">Risk Level:</span> {{ result.scan_summary.risk_level }}</p>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="mt-8">
-        <h2 class="text-xl font-bold mb-2">Permissions ({{ result.permissions|length }})</h2>
-        <div class="bg-slate-50 rounded p-4 overflow-auto text-sm">
-          <ul class="grid md:grid-cols-2 gap-2">
-            {% for perm in result.permissions %}
-            <li class="font-mono">{{ perm }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-
-      <div class="mt-8">
-        <h2 class="text-xl font-bold mb-2">Risk Breakdown</h2>
-        <div class="bg-slate-50 rounded p-4 overflow-auto text-sm">
-          <ul class="space-y-1">
-            {% for item in result.score_breakdown %}
-            <li class="flex items-center justify-between">
-              <span>{{ item.label }} — {{ item.reason }}</span>
-              <span class="font-semibold">+{{ item.weight }}</span>
-            </li>
-            {% else %}
-            <li class="text-slate-500">No dangerous permissions detected.</li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-
-      <div class="mt-8">
-        <a href="/" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded shadow">Scan Another APK</a>
+        <a href="/" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded shadow">Scan Another Website</a>
       </div>
     </div>
   </main>
 
   <footer class="mt-8 py-8 text-center text-slate-500">
-    <p>&copy; {{ 2025 }} APK Malware Scanner</p>
+    <p>&copy; {{ 2025 }} Web Vulnerability Scanner</p>
   </footer>
 </body>
 </html>

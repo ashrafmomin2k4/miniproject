@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>APK Malware Scanner</title>
+  <title>Web Vulnerability Scanner</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-800">
   <nav class="bg-white shadow">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="/" class="text-2xl font-bold text-blue-600">APK Malware Scanner</a>
+      <a href="/" class="text-2xl font-bold text-blue-600">Web Vulnerability Scanner</a>
       <div class="space-x-6">
         <a href="/" class="hover:text-blue-600">Home</a>
         <a href="/how-it-works" class="hover:text-blue-600">How It Works</a>
@@ -20,8 +20,8 @@
 
   <header class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
     <div class="max-w-6xl mx-auto px-4 py-20">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Scan Android Apps for Malware—Before You Install.</h1>
-      <p class="text-lg md:text-xl opacity-90 max-w-3xl">Our free tool analyzes APK files to detect dangerous permissions and known threats, helping you protect your personal data and privacy.</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Scan Websites for Security Vulnerabilities—Before They're Exploited.</h1>
+      <p class="text-lg md:text-xl opacity-90 max-w-3xl">Our free tool analyzes websites to detect common security vulnerabilities, helping you protect your web applications and data.</p>
     </div>
   </header>
 
@@ -37,55 +37,55 @@
     {% endwith %}
 
     <div class="bg-white shadow-xl rounded-lg p-6 md:p-10">
-      <form action="/scan" method="post" enctype="multipart/form-data" class="space-y-4">
+      <form action="/scan" method="post" class="space-y-4">
         <label class="block">
-          <span class="text-slate-700 font-medium">Upload APK & Scan Now</span>
-          <input type="file" name="file" accept=".apk" class="mt-2 block w-full text-sm text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" required>
+          <span class="text-slate-700 font-medium">Enter Website URL to Scan</span>
+          <input type="url" name="url" placeholder="https://example.com" class="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
         </label>
-        <button type="submit" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded shadow">Upload APK & Scan Now</button>
+        <button type="submit" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded shadow">Scan Website for Vulnerabilities</button>
       </form>
     </div>
 
     <section class="mt-16 grid md:grid-cols-3 gap-6">
       <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="text-xl font-bold mb-2">Upload File</h3>
-        <p>Drag and drop your APK file or select it from your device.</p>
+        <h3 class="text-xl font-bold mb-2">Enter URL</h3>
+        <p>Enter the website URL you want to scan for security vulnerabilities.</p>
       </div>
       <div class="bg-white p-6 rounded-lg shadow">
-        <h3 class="text-xl font-bold mb-2">Analyze Permissions</h3>
-        <p>We extract and analyze the permissions the app requests, looking for high-risk behaviors.</p>
+        <h3 class="text-xl font-bold mb-2">Automated Scan</h3>
+        <p>Our scanner performs comprehensive security checks including SSL, headers, and common vulnerabilities.</p>
       </div>
       <div class="bg-white p-6 rounded-lg shadow">
         <h3 class="text-xl font-bold mb-2">Get Report</h3>
-        <p>Receive an instant security report classifying the app as Clean, Suspicious, or Malicious.</p>
+        <p>Receive a detailed security report with risk assessment and remediation recommendations.</p>
       </div>
     </section>
 
     <section class="mt-16">
-      <h2 class="text-2xl font-bold mb-4">Key Features</h2>
+      <h2 class="text-2xl font-bold mb-4">Security Checks Performed</h2>
       <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-semibold text-lg mb-2">Static Analysis</h3>
-          <p>We inspect the app's code without ever running it, ensuring the process is 100% safe for you.</p>
+          <h3 class="font-semibold text-lg mb-2">SSL/TLS Security</h3>
+          <p>Checks for SSL certificate validity, encryption strength, and secure connection configuration.</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-semibold text-lg mb-2">Permission-Based Detection</h3>
-          <p>We flag apps that request dangerous permissions like camera access, contact reading, or sending SMS.</p>
+          <h3 class="font-semibold text-lg mb-2">Security Headers</h3>
+          <p>Analyzes HTTP security headers like HSTS, CSP, X-Frame-Options, and X-XSS-Protection.</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-semibold text-lg mb-2">Blacklist Checking</h3>
-          <p>Your file's unique signature (SHA256 hash) is checked against a database of known malware.</p>
+          <h3 class="font-semibold text-lg mb-2">Injection Vulnerabilities</h3>
+          <p>Tests for SQL injection, XSS, and directory traversal vulnerabilities in web applications.</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow">
-          <h3 class="font-semibold text-lg mb-2">Completely Free</h3>
-          <p>No fees, no sign-ups. Just simple, on-demand security.</p>
+          <h3 class="font-semibold text-lg mb-2">Information Disclosure</h3>
+          <p>Scans for exposed sensitive files, server information leaks, and configuration files.</p>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="mt-16 py-8 text-center text-slate-500">
-    <p>&copy; {{ 2025 }} APK Malware Scanner</p>
+    <p>&copy; {{ 2025 }} Web Vulnerability Scanner</p>
   </footer>
 </body>
 </html>

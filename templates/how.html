@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How It Works - APK Malware Scanner</title>
+  <title>How It Works - Web Vulnerability Scanner</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-800">
   <nav class="bg-white shadow">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="/" class="text-2xl font-bold text-blue-600">APK Malware Scanner</a>
+      <a href="/" class="text-2xl font-bold text-blue-600">Web Vulnerability Scanner</a>
       <div class="space-x-6">
         <a href="/" class="hover:text-blue-600">Home</a>
         <a href="/how-it-works" class="hover:text-blue-600">How It Works</a>
@@ -19,33 +19,35 @@
   </nav>
 
   <main class="max-w-4xl mx-auto px-4 py-12">
-    <h1 class="text-3xl font-extrabold mb-6">Our Detection Technology</h1>
+    <h1 class="text-3xl font-extrabold mb-6">Our Security Scanning Technology</h1>
 
     <section class="bg-white rounded-lg shadow p-6 mb-6">
-      <h2 class="text-xl font-bold mb-2">Static APK Analysis</h2>
-      <p>The tool uses the Androguard library to safely deconstruct and read the contents of the APK file. It extracts crucial metadata like package name, version, and, most importantly, the permissions it requires to run. This is done without executing the app, so there is zero risk.</p>
+      <h2 class="text-xl font-bold mb-2">Automated Web Security Scanning</h2>
+      <p>Our scanner performs comprehensive security checks on websites without requiring any installation or access to your server. It analyzes the target website from the outside, testing for common vulnerabilities and security misconfigurations.</p>
     </section>
 
     <section class="bg-white rounded-lg shadow p-6 mb-6">
-      <h2 class="text-xl font-bold mb-2">Rule-Based Permission Scanning</h2>
-      <p>Malware often exploits specific permissions. We look for the following dangerous permissions:</p>
+      <h2 class="text-xl font-bold mb-2">Comprehensive Vulnerability Detection</h2>
+      <p>Our scanner checks for the following common web vulnerabilities:</p>
       <ul class="list-disc pl-6 mt-2 space-y-1">
-        <li><code>SEND_SMS</code> — Can send texts without your knowledge</li>
-        <li><code>READ_CONTACTS</code> — Can steal your contact list</li>
-        <li><code>RECORD_AUDIO</code> — Can listen through your microphone</li>
-        <li><code>CAMERA</code> — Can access your camera</li>
+        <li><strong>SSL/TLS Issues</strong> — Expired certificates, weak encryption, self-signed certificates</li>
+        <li><strong>Missing Security Headers</strong> — HSTS, CSP, X-Frame-Options, X-XSS-Protection</li>
+        <li><strong>SQL Injection</strong> — Tests for database injection vulnerabilities</li>
+        <li><strong>Cross-Site Scripting (XSS)</strong> — Checks for script injection vulnerabilities</li>
+        <li><strong>Directory Traversal</strong> — Tests for file system access vulnerabilities</li>
+        <li><strong>Information Disclosure</strong> — Exposed sensitive files and server information</li>
       </ul>
-      <p class="mt-3">Classification: The tool uses a rule-based engine to classify the APK as <strong>Clean</strong>, <strong>Suspicious</strong>, or <strong>Malicious</strong> based on the number and combination of these risky permissions.</p>
+      <p class="mt-3">Classification: The tool uses a scoring system to classify websites as <strong>Low Risk</strong>, <strong>Medium Risk</strong>, or <strong>High Risk</strong> based on the vulnerabilities found.</p>
     </section>
 
     <section class="bg-white rounded-lg shadow p-6">
-      <h2 class="text-xl font-bold mb-2">Hash-Based Blacklist Detection</h2>
-      <p>We compute a unique SHA256 hash for every uploaded APK. This digital fingerprint is compared against a database of known malicious applications. If there's a match, the app is immediately flagged.</p>
+      <h2 class="text-xl font-bold mb-2">Non-Intrusive Testing</h2>
+      <p>All security tests are performed from the outside without requiring any special access or permissions. The scanner sends carefully crafted requests to test for vulnerabilities while respecting rate limits and avoiding any harmful actions.</p>
     </section>
   </main>
 
   <footer class="mt-8 py-8 text-center text-slate-500">
-    <p>&copy; {{ 2025 }} APK Malware Scanner</p>
+    <p>&copy; {{ 2025 }} Web Vulnerability Scanner</p>
   </footer>
 </body>
 </html>
